@@ -1,0 +1,52 @@
+service: serverless-todos
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+
+resources:
+  Resources:                         # 调用AWS CloudFormation
+    TodosTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TodosTable
+        BillingMode: PAY_PER_REQUEST # 根据请求收费，免费套餐中包含够用的请求
+        AttributeDefinitions:        # 定义Schema, 接受一个数组
+          - AttributeName: id,       # 这里出现的attribute, 每条记录必须都要有
+            AttributeType: S         # String(S), Number(N), Boolean(B)
+        KeySchema:                   # 主键中的 partition key
+          - AttributeName: id,
+            KeyType: HASH
+
+package:
+  include:
+   - src/utils/**
+
+functions:
+  hello:
+    handler: src/handlers/hello.handler
+    events:
+      - http:
+          method: GET
+          path: /test
+
+custom:
+  dynamodb:
+  # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      heapInitial: 200m
+      heapMax: 1g
+      migrate: true  # create table
+      seed: true
+      convertEmptyValues: true
+    # Uncomment only if you already have a DynamoDB running locally
+    # noStart: true
