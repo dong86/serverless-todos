@@ -15,7 +15,7 @@ const create = async(event, context) => {
     createdAt: currTime,
     updatedAt: currTime,
   };
-  console.log({todo})
+  
   try {
     // 查看DynamoDB文档 
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#put-property

@@ -43,6 +43,12 @@ functions:
       - http:
           method: POST
           path: /todos
+  list:
+    handler: src/handlers/list.handler
+    events:
+      - http:
+          method: GET
+          path: /todos
 
 custom:
   dynamodb:
