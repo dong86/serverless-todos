@@ -49,6 +49,12 @@ functions:
       - http:
           method: GET
           path: /todos
+  show:
+    handler: src/handlers/show.handler
+    events:
+      - http:
+          method: GET
+          path: /todos/{id}
 
 custom:
   dynamodb:
