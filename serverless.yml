@@ -17,11 +17,14 @@ resources:
         TableName: TodosTable
         BillingMode: PAY_PER_REQUEST # 根据请求收费，免费套餐中包含够用的请求
         AttributeDefinitions:        # 定义Schema, 接受一个数组
-          - AttributeName: id,       # 这里出现的attribute, 每条记录必须都要有
+          - AttributeName: id        # 这里出现的attribute, 每条记录必须都要有
             AttributeType: S         # String(S), Number(N), Boolean(B)
         KeySchema:                   # 主键中的 partition key
-          - AttributeName: id,
+          - AttributeName: id
             KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 
 package:
   include:
@@ -34,6 +37,12 @@ functions:
       - http:
           method: GET
           path: /test
+  create:
+    handler: src/handlers/create.handler
+    events:
+      - http:
+          method: POST
+          path: /todos
 
 custom:
   dynamodb:
