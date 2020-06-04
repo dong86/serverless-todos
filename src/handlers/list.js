@@ -8,7 +8,7 @@ const list = async(event, context) => {
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#scan-property
     // 使用scan方法查看表数据
     const todos = await dynamodb.scan({
-      TableName: 'TodosTable',
+      TableName: process.env.todoTableName,
       Limit: 10
     }).promise();
 

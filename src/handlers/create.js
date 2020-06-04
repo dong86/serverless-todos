@@ -22,7 +22,7 @@ const create = async(event, context) => {
     // 插入数据使用put
     // Lambda函数是异步，所以这里配合使用async/await
     await dynamodb.put({
-      TableName: 'TodosTable',
+      TableName: process.env.todoTableName,
       Item: todo
     }).promise();
 

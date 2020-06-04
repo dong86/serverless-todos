@@ -11,7 +11,7 @@ const remove = async(event, context) => {
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#delete-property
     // 使用delete方法删除特定Item
     await dynamodb.get({
-      TableName: 'TodosTable',
+      TableName: process.env.todoTableName,
       Key: { id }
     }).promise();
 

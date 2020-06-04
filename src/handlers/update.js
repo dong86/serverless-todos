@@ -23,7 +23,7 @@ const update = async(event, context) => {
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#update-property
     // 使用update方法更新特定Item
     const todo = await dynamodb.update({
-      TableName: 'TodosTable',
+      TableName: process.env.todoTableName,
       Key: { id },
       UpdateExpression: `SET ${updateExp.join(', ')}`,
       ExpressionAttributeValues: {

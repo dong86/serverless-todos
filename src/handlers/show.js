@@ -11,7 +11,7 @@ const show = async(event, context) => {
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html#get-property
     // 使用get方法获取特定Item
     const todo = await dynamodb.get({
-      TableName: 'TodosTable',
+      TableName: process.env.todoTableName,
       Key: { id }
     }).promise();
 

@@ -8,6 +8,19 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: us-east-1
+  environment:
+    stage: ${self:opt, self:provider.stage}
+    todoTableName: ${self:service}-table
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resources: "*"
 
 resources:
   Resources:                         # 调用AWS CloudFormation
