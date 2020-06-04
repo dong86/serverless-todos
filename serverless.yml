@@ -61,6 +61,12 @@ functions:
       - http:
           method: PUT
           path: /todos/{id}
+  delete:
+    handler: src/handlers/delete.handler
+    events:
+      - http:
+          method: DELETE
+          path: /todos/{id}
 
 custom:
   dynamodb:
