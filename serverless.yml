@@ -10,9 +10,9 @@ provider:
   region: us-east-1
   environment:
     stage: ${self:opt, self:provider.stage}
-    todoTableName: ${self:service}-table
+    todoTableName: ${self:service}-${self:opt, self:provider.stage}-table
   iamRoleStatements:
-    - Effect: Allow
+    - Effect: "Allow"
       Action:
         - dynamodb:PutItem
         - dynamodb:GetItem
@@ -20,14 +20,14 @@ provider:
         - dynamodb:Scan
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resources: "*"
+      Resource: "*"
 
 resources:
   Resources:                         # 调用AWS CloudFormation
     TodosTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: TodosTable
+        TableName: ${self:opt, self:provider.environment.todoTableName}
         BillingMode: PAY_PER_REQUEST # 根据请求收费，免费套餐中包含够用的请求
         AttributeDefinitions:        # 定义Schema, 接受一个数组
           - AttributeName: id        # 这里出现的attribute, 每条记录必须都要有
@@ -35,9 +35,6 @@ resources:
         KeySchema:                   # 主键中的 partition key
           - AttributeName: id
             KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
 
 package:
   include:
