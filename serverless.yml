@@ -55,6 +55,12 @@ functions:
       - http:
           method: GET
           path: /todos/{id}
+  update:
+    handler: src/handlers/update.handler
+    events:
+      - http:
+          method: PUT
+          path: /todos/{id}
 
 custom:
   dynamodb:

@@ -11,7 +11,7 @@ const create = async(event, context) => {
   const todo = {
     id: uuid.v4(),
     title,
-    status: 'new',
+    phase: 'new',
     createdAt: currTime,
     updatedAt: currTime,
   };

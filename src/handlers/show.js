@@ -2,7 +2,7 @@
 
 const dynamodb = require('../utils/dynamodb');
 
-const list = async(event, context) => {
+const show = async(event, context) => {
   // 路径: /{stage}/todos/{id}
   // 首先获取路径参数id
   const id = event.pathParameters.id;
@@ -37,4 +37,4 @@ const list = async(event, context) => {
   }
 };
 
-module.exports.handler = list;
+module.exports.handler = show;
